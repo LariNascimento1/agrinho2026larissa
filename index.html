@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monitoramento e Proteção Ambiental</title>
+    <!-- Linha que conecta este HTML ao arquivo de estilo separado -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1>🐛 2. Monitoramento e Proteção Ambiental</h1>
+        <p class="subtitle">Tecnologia para reduzir defensivos químicos e equilibrar o ecossistema.</p>
+    </header>
+
+    <div class="container">
+        
+        <!-- Painel da Armadilha Digital -->
+        <section class="card">
+            <h2>📡 Armadilha Digital para Insetos</h2>
+            <p>Dispositivo com sensor LDR para atração noturna e sensor ultrassônico para contagem instantânea de pragas.</p>
+            
+            <div class="hardware-sim">
+                <p><strong>Status do Sensor LDR:</strong> Noite (Luz Ativada 💡)</p>
+                <div class="display" id="tela-armadilha">
+                    CONTAGEM: 0 pragas<br>
+                    STATUS: Monitorando...
+                </div>
+                <button class="btn" onclick="simularCaptura()">Simular Inseto Capturado 🪰</button>
+                <button class="btn" style="background:#757575;" onclick="resetarContagem()">Resetar</button>
+            </div>
+        </section>
+
+        <!-- Painel do App de Triagem -->
+        <section class="card">
+            <h2>🍃 App de Triagem de Folhas Doentes</h2>
+            <p>Selecione os sintomas visíveis da planta para obter um diagnóstico rápido e soluções ecológicas.</p>
+            
+            <div class="symptom-group">
+                <label for="sintoma">Qual o sintoma principal da folha?</label>
+                <select id="sintoma" onchange="diagnosticarPlanta()">
+                    <option value="">-- Selecione um sintoma --</option>
+                    <option value="manchas_amarelas">Manchas amarelas nas folhas velhas</option>
+                    <option value="furos_folhas">Furos pequenos e folhas roídas</option>
+                    <option value="po_branco">Pó branco/cinza cobrindo a superfície</option>
+                    <option value="folhas_murchas">Folhas murchas mesmo com solo úmido</option>
+                </select>
+            </div>
+
+            <div id="resultado-triagem" class="result-box">
+                <h3 id="diag-titulo">Diagnóstico</h3>
+                <p id="diag-causa" style="margin-bottom: 10px;"></p>
+                <strong>🌱 Solução Natural:</strong>
+                <p id="diag-solucao"></p>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        // Lógica da Armadilha Digital
+        let contadorPragas = 0;
+        
+        function simularCaptura() {
+            contadorPragas++;
+            atualizarTelaArmadilha();
+        }
+
+        function resetarContagem() {
+            contadorPragas = 0;
+            atualizarTelaArmadilha();
+        }
+
+        function atualizarTelaArmadilha() {
+            const tela = document.getElementById('tela-armadilha');
+            let status = contadorPragas > 10 ? "ALERTA: Alta Infestação!" : "STATUS: Monitorando...";
+            tela.innerHTML = `CONTAGEM: ${contadorPragas} pragas<br>${status}`;
+        }
+
+        // Lógica do App de Triagem
+        function diagnosticarPlanta() {
+            const sintoma = document.getElementById('sintoma').value;
+            const resultadoBox = document.getElementById('resultado-triagem');
+            const titulo = document.getElementById('diag-titulo');
+            const causa = document.getElementById('diag-causa');
+            const solucao = document.getElementById('diag-solucao');
+
+            if (!sintoma) {
+                resultadoBox.style.display = 'none';
+                return;
+            }
+
+            resultadoBox.style.display = 'block';
+
+            if (sintoma === 'manchas_amarelas') {
+                titulo.innerText = "❌ Deficiência Nutricional";
+                causa.innerText = "Falta de Nitrogênio (N) no solo.";
+                solucao.innerText = "Aplique biofertilizante de esterco curtido ou farinha de casca de ovo com borra de café diluída em água.";
+            } else if (sintoma === 'furos_folhas') {
+                titulo.innerText = "🐛 Ataque de Pragas";
+                causa.innerText = "Presença de lagartas ou besouros desfolhadores.";
+                solucao.innerText = "Use calda de fumo ou óleo de Neem pulverizado nas folhas ao final do dia.";
+            } else if (sintoma === 'po_branco') {
+                titulo.innerText = "🍄 Infecção por Fungos";
+                causa.innerText = "Oídio (comum em climas secos e quentes).";
+                solucao.innerText = "Pulverize uma mistura de 1 parte de leite cru para 9 partes de água sob o sol.";
+            } else if (sintoma === 'folhas_murchas') {
+                titulo.innerText = "🪱 Pragas de Solo / Fungo de Raiz";
+                causa.innerText = "Possível ataque de nematoides ou excesso de umidade apodrecendo as raízes.";
+                solucao.innerText = "Plante cravo-da-índia ou tagetes (cravo-de-defunto) perto da planta para repelir nematoides naturalmente.";
+            }
+        }
+    </script>
+</body>
+</html>
